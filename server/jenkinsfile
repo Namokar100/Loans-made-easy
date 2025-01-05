@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_DIR = '/server'  // Replace with your application directory
+        APP_DIR = 'server'  // Replace with your application directory
         NODE_ENV = 'production'
     }
 

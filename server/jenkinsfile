@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Pull the latest code from GitHub
-                git branch: 'main', credentialsId: 'namo1', url: 'https://github.com/Namokar100/Loans-made-easy.git'
+                git branch: 'main', credentialsId: 'github_credentials', url: 'https://github.com/Namokar100/Loans-made-easy.git'
             }
         }
 
@@ -30,9 +30,12 @@ pipeline {
 
         stage('Restart Server') {
             steps {
-                // Restart the server using PM2
+                // Use pm2 to restart the server
                 dir(APP_DIR) {
-                    sh 'npm run start' // Adjust server entry point
+                    sh '''
+                    pm2 stop all || true
+                    pm2 start index.js --name loan-backend
+                    '''
                 }
             }
         }
